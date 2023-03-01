@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <tlitle>hotels</tlitle>
+    <link rel="stylesheet" th:href="@{../static/style.css}">
+</head>
+<body>
+<table th:each="hotel: ${hotels}" border="1">
+    <tr>
+        <th>№</th>
+        <th>name</th>
+    </tr>
+    <tr>
+        <td th:text="${hotel.id}"></td>
+        <td th:text="${hotel.name}"></td>
+    </tr>
+
+</table>
+
+<div th:each="i : ${#numbers.sequence(0, count)}" style="display: inline-block; margin: 10px">
+    <a th:href="@{/hotel(page=${i})}" th:text="${i+1}"></a>
+</div>
+
+</body>
+</html>
