@@ -17,6 +17,12 @@ import java.util.Collection;
 @Controller
 public class HotelController {
 
+
+    @GetMapping("/addHotel")
+    public String getAddHotelPage(Model model) {
+        model.addAttribute("hotel", new Hotel());
+        return "addHotel";
+    }
     @Autowired
     private HotelRepo hotelRepo;
 
@@ -28,12 +34,6 @@ public class HotelController {
         model.addAttribute("hotels", hotelRepo.findAll(pageable));
         model.addAttribute("count", hotelRepo.countOfHotels() / 10 - 1);
         return "hotels";
-    }
-
-    @GetMapping("/addHotel")
-    public String getAddHotelPage(Model model) {
-        model.addAttribute("hotel", new Hotel());
-        return "addHotel";
     }
 
     @PostMapping("/addHotel")

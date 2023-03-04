@@ -17,7 +17,7 @@ public class Room {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private int room;
+    private int numb;
 
     @Column(nullable = false)
     private int floor;
@@ -28,6 +28,6 @@ public class Room {
     @Column
     private boolean busy;
 
-    @ManyToOne
-    private Hotel hotel;
+//    @ManyToOne
+//    private Hotel hotel;
 }
