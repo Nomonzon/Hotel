@@ -25,7 +25,6 @@ public class Room {
     @Column(nullable = false)
     private int size;
 
-    @Column
     private boolean busy;
 
 //    @ManyToOne

@@ -32,7 +32,7 @@ public class HotelController {
         Pageable pageable = PageRequest.of(page, 10);
         Collection<String> collection = new ArrayList<>();
         model.addAttribute("hotels", hotelRepo.findAll(pageable));
-        model.addAttribute("count", hotelRepo.countOfHotels() / 10 - 1);
+        model.addAttribute("count", hotelRepo.countOfHotels() / 10);
         return "hotels";
     }
 

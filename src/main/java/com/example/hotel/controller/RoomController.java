@@ -49,16 +49,5 @@ public class RoomController {
             roomRepo.save(room);
             return "redirect:room?page=0";
         }
-
-
-
-
-
-//       public String add(@RequestBody RoomDto roomDto) {
-////        Optional<hotel> address = hotelRepo.findById(facultyDto.gethotelId());
-////        if (address.isPresent()) {
-////            hotel hotel1 = address.get();
-////            Room room= new Faculty(null, roomDto.getName(), hotel1);
-////            RoomRepo.save(room);
     }
 }
