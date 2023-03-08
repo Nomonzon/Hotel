@@ -19,12 +19,12 @@
 
 <body>
 
-<form action="/addRoom" th:object="${roomDto}" method="POST">
+<form action="/addRoom" th:object="${room}" method="POST">
     <input type="text" name="room" class="form-control" placeholder="Room number">
     <input type="text" name="floor" class="form-control" placeholder="Floor">
     <input type="text" name="size" class="form-control" placeholder="Size">
 
-    <select class="form-select" th:field="${roomDto.hotelId}">
+    <select class="form-select" th:field="${room.hotelId}">
         <option th:each="hotel: ${hotels}" th:value="${hotel.id}" th:text="${hotel.name}">
     </select>
     <button type="submit" class="btn btn-primary">Saqlash</button>

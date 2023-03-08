@@ -8,46 +8,52 @@ import com.example.hotel.service.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Optional;
 
-@RestController
+@Controller
 public class RoomController {
 
-
-    @GetMapping("/addRoom")
-    public String getAddHotelPage(Model model) {
-        model.addAttribute("room", new Room());
-        return "addRoom";
-    }
     @Autowired
     private RoomRepo roomRepo;
 
     @Autowired
     private HotelRepo hotelRepo;
 
-    @GetMapping("/room")
-    public String getALlHotels(Model model, @RequestParam Integer page) {
+    @GetMapping("/addRoom")
+    public String getAddHotelPage(Model model) {
+        model.addAttribute("room", new RoomDto());
+        model.addAttribute("hotels", hotelRepo.findAll());
+        return "addRoom";
+    }
+
+    @GetMapping("/rooms")
+    public String getALlHotels(Model model,@RequestParam Integer page) {
         Pageable pageable = PageRequest.of(page, 10);
-        Collection<String> collection = new ArrayList<>();
         model.addAttribute("rooms", roomRepo.findAll(pageable));
-        model.addAttribute("count", roomRepo.countOfRooms() / 10 - 1);
-        return "hotels";
+        model.addAttribute("count", roomRepo.countRoomBy() / 10);
+        return "rooms";
     }
 
     @PostMapping("/addRoom")
-    public String addHotel(@ModelAttribute Room room, Model model) {
-        if (roomRepo.existsRoomByNumb(room.getNumb())) {
+    public String addHotel(@ModelAttribute RoomDto roomDto, Model model) {
+        if (roomRepo.countRoomByNumbAndHotel_Id(roomDto.getNumb(), roomDto.getHotelId()) > 0) {
             model.addAttribute("message", "Bunday room alaqachon kiritilgan.");
             return "error";
         } else {
-            roomRepo.save(room);
-            return "redirect:room?page=0";
+            Optional<Hotel> address = hotelRepo.findById(roomDto.getHotelId());
+            if (address.isPresent()) {
+                Hotel hotel1 = address.get();
+                Room room = new Room(null, roomDto.getNumb(), roomDto.getFloor(), roomDto.getSize(), false, hotel1);
+                roomRepo.save(room);
+            }
+            return "redirect:rooms?page=0";
         }
     }
 }
+

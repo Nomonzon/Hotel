@@ -27,6 +27,6 @@ public class Room {
 
     private boolean busy;
 
-//    @ManyToOne
-//    private Hotel hotel;
+    @ManyToOne
+    private Hotel hotel;
 }

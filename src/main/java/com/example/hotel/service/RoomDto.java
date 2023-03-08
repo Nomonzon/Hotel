@@ -17,5 +17,5 @@ public class RoomDto {
     private int floor;
     private int size;
     private boolean busy;
-    private Hotel hotelId;
+    private Long hotelId;
 }
